@@ -18,6 +18,7 @@ pip install requests Flask
 ## how
 
 First change the line with `db_file` in it in `server.py` to include the path to where the server application should store its database.
+E.g. `db_file = 'c:/exceptionpickler/data.db'`
 
 Then, to install as a windows service:
 ```bash
