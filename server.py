@@ -56,11 +56,11 @@ def index():
     rc += '<tr><th>latest</th><th># occurences</th><th>what</th><th>where</th></tr>'
     con = sqlite3.connect(db_file)
     cur = con.cursor()  # FIXME dict cursor
-    cur.execute('SELECT MAX(`when`), details, COUNT(*) AS n_occurences, id FROM exceptions GROUP BY details ORDER BY `when` DESC')
+    cur.execute('SELECT MAX(`when`) AS latest, details, COUNT(*) AS n_occurences, id, MIN(`when`) AS first FROM exceptions GROUP BY details ORDER BY `when` DESC')
     for row in cur:
         j = json.loads(row[1])
         where = j['traceback'][-2]
-        rc += f'<tr><td><a href="/details?id={row[3]}">{time.ctime(row[0])}</a></td><td>{row[2]}</td><td>{j["text"]}</td><td>{where}</td></tr>'
+        rc += f'<tr><td title="first occurence: {row[4]}"><a href="/details?id={row[3]}">{time.ctime(row[0])}</a></td><td>{row[2]}</td><td>{j["text"]}</td><td>{where}</td></tr>'
     cur.close()
     con.close()
 
