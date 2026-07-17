@@ -60,7 +60,7 @@ def index():
     for row in cur:
         j = json.loads(row[1])
         where = j['traceback'][-2]
-        rc += f'<tr><td title="first occurence: {row[4]}"><a href="/details?id={row[3]}">{time.ctime(row[0])}</a></td><td>{row[2]}</td><td>{j["text"]}</td><td>{where}</td></tr>'
+        rc += f'<tr><td title="first occurence: {time.ctime(row[4])}"><a href="/details?id={row[3]}">{time.ctime(row[0])}</a></td><td>{row[2]}</td><td>{j["text"]}</td><td>{where}</td></tr>'
     cur.close()
     con.close()
 
