@@ -38,4 +38,9 @@ include_me.transmit_exception(e)
 Also make sure to change the `exceptionpickler_server` line in `include_me.py` to let it point to the exceptionpickler-server (see the flask invocation above).
 
 
+## results
+
+You can see the collected tracebacks by pointing your web-browser to http://ip-adres-of-server:4009/
+
+
 Written by Folkert van Heusden for Grover Underdogs.
