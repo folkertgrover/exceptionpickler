@@ -17,12 +17,6 @@ pip install requests Flask
 
 ## how
 
-To see if it works, run:
-
-```bash
-flask --app server run --port 4009 --host 0.0.0.0
-```
-
 To install as a windows service:
 ```bash
 python server.py --startup auto install
