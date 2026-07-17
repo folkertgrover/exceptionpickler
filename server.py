@@ -2,8 +2,13 @@
 
 from flask import Flask, request
 import json
+import servicemanager
+import socket
 import sqlite3
 import time
+import win32serviceutil
+import win32service
+import win32event
 
 
 db_file = 'data.db'
@@ -23,8 +28,6 @@ def create_db(file):
     except Exception as e:
         pass
 
-
-create_db(db_file)
 
 app = Flask(__name__)
 
@@ -231,3 +234,31 @@ thead th {
                             box-shadow: inset 0 0 0 1px var(--tbl-blue-soft);
                             }
 '''
+
+
+class AppServerSvc (win32serviceutil.ServiceFramework):
+    _svc_name_ = "ExceptionPickler"
+    _svc_display_name_ = "Python exception collector"
+
+    def __init__(self,args):
+        win32serviceutil.ServiceFramework.__init__(self,args)
+        self.hWaitStop = win32event.CreateEvent(None, 0, 0, None)
+        socket.setdefaulttimeout(60)
+
+    def SvcStop(self):
+        self.ReportServiceStatus(win32service.SERVICE_STOP_PENDING)
+        win32event.SetEvent(self.hWaitStop)
+
+    def SvcDoRun(self):
+        servicemanager.LogMsg(servicemanager.EVENTLOG_INFORMATION_TYPE,
+                          servicemanager.PYS_SERVICE_STARTED,
+                          (self._svc_name_,''))
+        self.main()
+
+    def main(self):
+        create_db(db_file)
+
+        app.run(host='0.0.0.0', port=4009)
+
+if __name__ == '__main__':
+    win32serviceutil.HandleCommandLine(AppServerSvc)

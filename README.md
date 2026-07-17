@@ -17,10 +17,16 @@ pip install requests Flask
 
 ## how
 
-On your server, run:
+To see if it works, run:
 
 ```bash
 flask --app server run --port 4009 --host 0.0.0.0
+```
+
+To install as a windows service:
+```bash
+python server.py --startup auto install
+sc start ExceptionPickler
 ```
 
 In your code, add:
