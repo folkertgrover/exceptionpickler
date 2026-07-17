@@ -17,7 +17,9 @@ pip install requests Flask
 
 ## how
 
-To install as a windows service:
+First change the line with `db_file` in it in `server.py` to include the path to where the server application should store its database.
+
+Then, to install as a windows service:
 ```bash
 python server.py --startup auto install
 sc start ExceptionPickler
