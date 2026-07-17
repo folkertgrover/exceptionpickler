@@ -1,4 +1,4 @@
-## why
+## when / what
 
 If you can't run docker or you're in the situation that you need to run your python exception-collector under windows, then this might be useful.
 
