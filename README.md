@@ -40,6 +40,15 @@ include_me.transmit_exception(e)
 
 Also make sure to change the `exceptionpickler_server` line in `include_me.py` to let it point to the exceptionpickler-server (see the flask invocation above).
 
+### system wide
+
+You can also install the capturer system-wide. For that, copy `sitecustomize.py` into the python search-path. Do not forget to adapt the `exceptionpickler_server` line in that file.
+To see which paths are searched by python, invoke this in the python command line interpreter:
+```python
+import sys
+print(sys.path)
+```
+
 
 ## results
 
